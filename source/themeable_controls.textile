@@ -1,0 +1,33 @@
+h2. Writing Themeable Controls
+
+This guide covers writing custom controls that can be displayed in different styles via themes. You'll learn to:
+
+* Separate behavior and appearance using render delegates
+* Allow others to theme your controls
+
+endprologue.
+
+h3. Changing Controls Appearance
+
+When you write a custom control, you usually override its `render` and `update` methods to create and update its HTML representation. However, you may not always want to have your control display the same if the context in which it is displayed changes.
+
+h4. Render Delegates
+
+Render delegates are objects that receive a data source object and know how to represent that object in HTML. Typically, the data source will be an instance of SC.View, and the render delegate will use its display properties to draw the view.
+
+For example, SC.ButtonView contains several properties that determine its appearance. It's +title+ property is displayed in the middle of the button, and the it may appear depressed if its +isActive+ property is +YES+.
+
+A render delegate for SC.ButtonView would be able to inspect it for these properties and generate the proper HTML. A button with the following properties:
+
+<javascript>
+SC.ButtonView.create({
+  title: "My Button",
+  isActive: YES
+});
+</javascript>
+
+might be represented with the following HTML:
+
+<html>
+<div class="sc-button-view active">My Button</div>
+</html>
